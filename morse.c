@@ -42,9 +42,100 @@
  * Time Zone : Jakarta, GMT+7 , WIB
  */
 #include "morse.h"
-/*
-MORSE ARRAY CHARACTERS
-*/
+int __fdL(char *str[], char t[]){
+	int x;
+	for (x = 0; str[x] != "\0" && !cmp(str[x], t); x++);
+	if (str[x] == "\0")return -1;
+	return x;
+}
+int __aToM(const char *s){
+	int x = 0;
+	int sum = 0;
+	char t[3];
+	for (;*(s+x) != '\0'; x++){
+		if(toLower(*(s+x))== 'k'&& toLower(*(s+(x+1))) == 'h'){
+			t[0] = 'k';
+			t[1] = 'h';
+			t[2] = '\0';
+			x++;			
+		}
+		else if(*(s+x) == ' '){
+			sum+=2;
+			continue;
+		}
+		else {
+			t[0] = toLower(*(s+x));
+			t[1] = '\0';
+		}
+		int line = __fdL(lchr, t);
+		
+		if(line == -1)sum++;
+		else 
+			sum += (strlen(lmorse[line])+1);
+	}
+	//printf("%i",sum);
+	return sum;
+}
+
+void ccat(char s[], char t[], int sp, int *p){
+	if(s[sp] == '\0')return;
+	else {
+		t[*p] = s[sp];
+		*p = *p + 1;
+		sp++;
+		ccat(s, t, sp, p );
+	}
+}
+int cm(int a, int b){return a==b;}
+int _____alloc_memToStr(const char *s){
+	int idx, strp = 0;
+	int count;
+	char tmp;
+	for(idx = count = 0; *s != '\0'; s++){
+		
+		if (*s == ' '){
+			tmp = *(s+1);
+			/*if (tmp == '\0')
+			    if(idx != 0) {
+			    	count++;
+			    	break;
+			    }
+			else*/ 
+			
+			if(tmp == ' '){
+				count++;
+				s++;
+			}
+			if (strp == 4)strp=0;
+			else if(idx != 0)count++;
+			idx = 0;
+		}
+		else if(*s == '-'){
+			strp++;
+			idx++;
+			tmp = *(s+1);
+			if (tmp == '\0' || tmp == ' '){
+				if (strp == 4) count+=2;
+				else if (tmp == '\0' ) count++;
+			}
+			
+		}
+		else if (*s == '.'){
+			tmp = *(s+1);
+			idx++;
+			strp= 0;
+			if (tmp == '\0') count++;
+			
+		}
+	}
+	return count;
+}
+
+int len(const char s[]){
+	int m = 0;
+	while (s[m++] != '\0');
+	return --m;
+}
 void toMorse(char tmp[], const char *s){
 	char t[3];
 	int cnt = 0;
