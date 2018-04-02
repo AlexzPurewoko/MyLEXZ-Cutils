@@ -831,7 +831,7 @@ int nclose(NDATA * data)
 }
 
  // add a new node
-void addNode(NDATA * data, const char *path, const char *node_name)
+void nadd_node(NDATA * data, const char *path, const char *node_name)
 {
 	if (!data)
 		return;
@@ -903,7 +903,7 @@ short nisAF(NDATA * data)
 }
 
 // delete a nodes
-void delNode(NDATA * data, const char *fullpath)
+void ndel_node(NDATA * data, const char *fullpath)
 {
 	if (!data)
 		return;
@@ -957,7 +957,7 @@ void delNode(NDATA * data, const char *fullpath)
 }
 
 // clear all content in any nodes
-void clearContents(NDATA * data, const char *fullpath)
+void nclear_body(NDATA * data, const char *fullpath)
 {
 	if (!data)
 		return;
@@ -1018,7 +1018,7 @@ void clearContents(NDATA * data, const char *fullpath)
 }
 
 // Get all contents from current path with identifier
-char **listContents(NDATA * data, const char *fullpath)
+char **nlist_body(NDATA * data, const char *fullpath)
 {
 	if (!data)
 		return NULL;
@@ -1229,7 +1229,7 @@ char **listContents(NDATA * data, const char *fullpath)
 }
 
  // used to add new element in specified path/nodes
-void naddElem(NDATA * data, const char *path, const char *elem, const short type, void *content,
+void nadd_data(NDATA * data, const char *path, const char *elem, const short type, void *content,
 			  short encrypt_flags)
 {
 	if (!data)
@@ -1403,7 +1403,7 @@ void naddElem(NDATA * data, const char *path, const char *elem, const short type
 }
 
 // getting a content value from specified path
-void *ngetElem(NDATA * data, const char *fullpath)
+void *nget_data(NDATA * data, const char *fullpath)
 {
 	// declare a variables
 	if (!data)
@@ -1543,7 +1543,7 @@ void *ngetElem(NDATA * data, const char *fullpath)
 }
 
 // for deleting an element
-void ndelElem(NDATA * data, const char *fullpath)
+void ndel_data(NDATA * data, const char *fullpath)
 {
 	// declare a variables
 	if (!data)
@@ -1592,7 +1592,7 @@ void ndelElem(NDATA * data, const char *fullpath)
 }
 
 // change the value of an elements
-void nsetElem(NDATA * data, const char *fullpath, void *content)
+void nset_data(NDATA * data, const char *fullpath, void *content)
 {
 	// declare a variables
 	if (!data)
@@ -1833,7 +1833,7 @@ void nnext_cats(NDATA * data, const char *s)
 
 void nempty_el(NDATA * data, const char *fullpath)
 {
-	nsetElem(data, fullpath, NULL);
+	nset_data(data, fullpath, NULL);
 }
 
 short nis_empty(NDATA * data, const char *fullpath)
@@ -1872,7 +1872,7 @@ short nis_empty(NDATA * data, const char *fullpath)
 }
 
 // display current symbol output errors
-short ngetErrors(NDATA * data)
+short nget_error(NDATA * data)
 {
 	return (data)?data->__errnum:EDN;
 }
@@ -3143,7 +3143,7 @@ void nempty_arr(NDATA * data, const char *fullpath)
 {
 	nsetArray(data, fullpath, NULL, 0);
 }
-char *ndisplayErr(NDATA * data)
+char *ndisplay_error(NDATA * data)
 {
 	if(!data)return "Error : Data is null, You must not using this variable";
 	switch (data->__errnum)

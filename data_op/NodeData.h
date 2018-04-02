@@ -128,20 +128,23 @@ typedef struct __node_data__
 } NDATA;
 extern NDATA *nopen(const char *nameFile, const char *signature);
 extern int nclose(NDATA * data);
-extern void addNode(NDATA * data, const char *path, const char *node_name);
-extern void delNode(NDATA * data, const char *fullpath);
-extern void clearContents(NDATA * data, const char *fullpath);
-extern char **listContents(NDATA * data, const char *fullpath);
-extern void naddElem(NDATA * data, const char *path, const char *elem, const short type, void *content, short encrypt_flags);
-extern void *ngetElem(NDATA * data, const char *fullpath);
-extern void ndelElem(NDATA * data, const char *fullpath);
-extern void nsetElem(NDATA * data, const char *fullpath, void *content);
+
+extern void nadd_node(NDATA * data, const char *path, const char *node_name);
+extern void ndel_node(NDATA * data, const char *fullpath);
+extern void nclear_body(NDATA * data, const char *fullpath);
+extern char **nlist_body(NDATA * data, const char *fullpath);
+
+extern void nadd_data(NDATA * data, const char *path, const char *elem, const short type, void *content, short encrypt_flags);
+extern void *nget_data(NDATA * data, const char *fullpath);
+extern void ndel_data(NDATA * data, const char *fullpath);
+extern void nset_data(NDATA * data, const char *fullpath, void *content);
 extern void nstrcat_iter(NDATA * data, const char *fullpath);
 extern void nnext_catc(NDATA * data, const char c);
 extern void nnext_cats(NDATA * data, const char *s);
-extern void nempty_el(NDATA * data, const char *fullpath);
+extern void nempty_data(NDATA * data, const char *fullpath);
 extern short nis_empty(NDATA * data, const char *fullpath);
-extern short ngetErrors(NDATA * data);
+extern short nget_error(NDATA * data);
+
 extern void nsetAF(NDATA * data, short decision);
 extern short nisAF(NDATA * data);
 extern void naddArray(NDATA * data, const char *path, const char *name_arr, short type, void *content, size_t size, short encrypt_flags);
@@ -151,7 +154,7 @@ extern int ngetArrLength(NDATA * data, const char *fullpath);
 extern void nsetArray(NDATA * data, const char *fullpath, void *content, int size);
 extern void nsetArrayAtPos(NDATA * data, const char *fullpath, void *content, int size, int start, int end);
 extern void nappendArray(NDATA * data, const char *fullpath, void *content, int size);
-extern char *ndisplayErr(NDATA * data);
+extern char *ndisplay_error(NDATA * data);
 extern void nempty_arr(NDATA * data, const char *fullpath);
 extern void ndelAtPos(NDATA * data, const char *fullpath, int start, int end);
  // method to fix
