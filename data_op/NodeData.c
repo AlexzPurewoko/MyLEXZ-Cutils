@@ -1877,7 +1877,7 @@ short nget_error(NDATA * data)
 	return (data)?data->__errnum:EDN;
 }
 
-void naddArray(NDATA * data, const char *path, const char *name_arr, short type, void *content,
+void nadd_arr(NDATA * data, const char *path, const char *name_arr, short type, void *content,
 			   size_t size, short encrypt_flags)
 {
 	if (!data)
@@ -1964,7 +1964,7 @@ void naddArray(NDATA * data, const char *path, const char *name_arr, short type,
 	*_errnum = NE;
 }
 
-void *ngetArray(NDATA * data, const char *fullpath)
+void *nget_arr(NDATA * data, const char *fullpath)
 {
 	if (!data)
 		return NULL;
@@ -2132,7 +2132,7 @@ void *ngetArray(NDATA * data, const char *fullpath)
 	return _result;
 }
 
-void *ngetArrayAtPos(NDATA * data, const char *fullpath, int start, int end)
+void *nget_ap(NDATA * data, const char *fullpath, int start, int end)
 {
 	if (!data)
 		return NULL;
@@ -2334,7 +2334,7 @@ void *ngetArrayAtPos(NDATA * data, const char *fullpath, int start, int end)
 	return _result;
 }
 
-void nsetArray(NDATA * data, const char *fullpath, void *content, int size)
+void nset_arr(NDATA * data, const char *fullpath, void *content, int size)
 {
 	// declare a variables
 	if (!data)
@@ -2455,7 +2455,7 @@ void nsetArray(NDATA * data, const char *fullpath, void *content, int size)
 	return;
 }
 
-void nsetArrayAtPos(NDATA * data, const char *fullpath, void *content, int size, int start,
+void nset_ap(NDATA * data, const char *fullpath, void *content, int size, int start,
 					int end)
 {
 	// declare a variables
@@ -2689,7 +2689,7 @@ void nsetArrayAtPos(NDATA * data, const char *fullpath, void *content, int size,
 	return;
 }
 
-void nappendArray(NDATA * data, const char *fullpath, void *content, int size)
+void nappend_arr(NDATA * data, const char *fullpath, void *content, int size)
 {
 	// declare a variables
 	if (!data)
@@ -2885,7 +2885,7 @@ void nappendArray(NDATA * data, const char *fullpath, void *content, int size)
 	return;
 }
 
-short ngetTPElem(NDATA * data, const char *fullpath)
+short nget_td(NDATA * data, const char *fullpath)
 {
 	if (!data)
 		return 0;
@@ -2942,7 +2942,7 @@ short nis_exists(NDATA *data, const char *fullpath){
 	fseek(_open, *_sigPos, 0);
 	return 1;
 }
-int ngetArrLength(NDATA * data, const char *fullpath)
+int nget_arrlen(NDATA * data, const char *fullpath)
 {
 	if (!data)
 		return 0;
@@ -2984,7 +2984,7 @@ int ngetArrLength(NDATA * data, const char *fullpath)
 	fseek(_open, *_sigPos, 0);
 	return __sizearr;
 }
-void ndelAtPos(NDATA * data, const char *fullpath, int start, int end)
+void ndel_ap(NDATA * data, const char *fullpath, int start, int end)
 {
 	// declare a variables
 	if (!data)
@@ -3141,7 +3141,7 @@ void ndelAtPos(NDATA * data, const char *fullpath, int start, int end)
 }
 void nempty_arr(NDATA * data, const char *fullpath)
 {
-	nsetArray(data, fullpath, NULL, 0);
+	nset_arr(data, fullpath, NULL, 0);
 }
 char *ndisplay_error(NDATA * data)
 {

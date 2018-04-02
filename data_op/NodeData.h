@@ -147,17 +147,18 @@ extern short nget_error(NDATA * data);
 
 extern void nsetAF(NDATA * data, short decision);
 extern short nisAF(NDATA * data);
-extern void naddArray(NDATA * data, const char *path, const char *name_arr, short type, void *content, size_t size, short encrypt_flags);
-extern void *ngetArray(NDATA * data, const char *fullpath);
-extern void *ngetArrayAtPos(NDATA * data, const char *fullpath, int start, int end);
-extern int ngetArrLength(NDATA * data, const char *fullpath);
-extern void nsetArray(NDATA * data, const char *fullpath, void *content, int size);
-extern void nsetArrayAtPos(NDATA * data, const char *fullpath, void *content, int size, int start, int end);
-extern void nappendArray(NDATA * data, const char *fullpath, void *content, int size);
+
+extern void nadd_arr(NDATA * data, const char *path, const char *name_arr, short type, void *content, size_t size, short encrypt_flags);
+extern void *nget_arr(NDATA * data, const char *fullpath);
+extern void *nget_ap(NDATA * data, const char *fullpath, int start, int end);
+extern int nget_arrlen(NDATA * data, const char *fullpath);
+extern void nset_arr(NDATA * data, const char *fullpath, void *content, int size);
+extern void nset_ap(NDATA * data, const char *fullpath, void *content, int size, int start, int end);
+extern void nappend_arr(NDATA * data, const char *fullpath, void *content, int size);
 extern char *ndisplay_error(NDATA * data);
 extern void nempty_arr(NDATA * data, const char *fullpath);
-extern void ndelAtPos(NDATA * data, const char *fullpath, int start, int end);
- // method to fix
+extern void ndel_ap(NDATA * data, const char *fullpath, int start, int end);
+
  // for iteration collecting data in an array
 extern void nreadarr_iter(NDATA * data, const char *fullpath);
 extern void *nnext_read(NDATA * data);
@@ -175,6 +176,6 @@ extern void nnext_addarr(NDATA * data, void *content);
 extern void nsave(NDATA * data);
  // return true if any iterator operation
 extern short nisLocked(NDATA * data);
-extern short ngetTPElem(NDATA * data, const char *fullpath);
+extern short nget_td(NDATA * data, const char *fullpath); // for get the data types
 extern short nis_exists(NDATA *data, const char *fullpath);
 #define Data NDATA *
