@@ -150,6 +150,7 @@ extern short nisAF(NDATA * data);
 
 extern void nadd_arr(NDATA * data, const char *path, const char *name_arr, short type, void *content, size_t size, short encrypt_flags);
 extern void *nget_arr(NDATA * data, const char *fullpath);
+extern size_t nget_occur(NDATA * data, const char *fullpath, void *data_comp);
 extern void *nget_ap(NDATA * data, const char *fullpath, int start, int end);
 extern int nget_arrlen(NDATA * data, const char *fullpath);
 extern void nset_arr(NDATA * data, const char *fullpath, void *content, int size);

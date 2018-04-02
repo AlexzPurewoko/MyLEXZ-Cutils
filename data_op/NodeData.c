@@ -2131,7 +2131,165 @@ void *nget_arr(NDATA * data, const char *fullpath)
 	fseek(_open, *_sigPos, 0);
 	return _result;
 }
+size_t nget_occur(NDATA * data, const char *fullpath, void *data_comp){
+	if (!data)
+		return 0;
+	if (nisLocked(data))
+	{
+		data->__errnum = EDL;
+		return 0;
+	}
+	__DEFINE_VARS__
+		// get the current name elements and passing into dynamic memory
+		strcpy(_temp, fullpath);
+	char *__name = __getCon_and_path__(_temp);
+	char *_name = malloc(strlen(__name));
+	strcpy(_name, __name);
+	__nname__ __path = (_temp[0] != '\0') ? __con_pathNode__(_temp) : NULL;
+	register int _w, _x, _y, _z;
+	register size_t count_res = 0;
+	if (!__check_and_pointE__(data, __path, _name))
+	{
+		fseek(_open, *_sigPos, 0);
+		free(_name);
+		*_errnum = EENF;
+		return 0;
+	}
+	short *_type = malloc(sizeof(short));
+	short *_id = malloc(sizeof(short));
+	short *_en_flags = malloc(sizeof(short));
+	*_type = getc(_open);
+	*_id = getc(_open);
+	*_en_flags = getc(_open) - '0';
+	if (*_type != _ARR_ID_)
+	{
+		free(_type);
+		free(_id);
+		free(_name);
+		free(_en_flags);
+		*_errnum = EIAT;
+		fseek(_open, *_sigPos, 0);
+		return 0;
+	}
+	int *__arrlen = NULL;
+	int *__sizearr = malloc(sizeof(int));
 
+	// point to _LEN_
+	while (getc(_open) != _LEN_);
+	_y = _z = 0;
+	while ((_x = getc(_open)) != _LEN_ && _x != _C_BUKA_)
+		_temp[_z++] = _x;
+	_temp[_z] = '\0';
+	*__sizearr = atoi(_temp);
+	if (!(*__sizearr))
+	{
+		free(_type);
+		free(_id);
+		free(_name);
+		free(_en_flags);
+		free(__sizearr);
+		fseek(_open, *_sigPos, 0);
+		*_errnum = N_VAL;
+		return 0;
+	}
+	if (*_id == STR)
+	{
+		_y = _z = 0;
+		__arrlen = malloc(sizeof(int) * (*__sizearr));
+		while ((_x = getc(_open)) != _C_BUKA_)
+		{
+			if (_x == _LEN_SEP_)
+			{
+				_temp[_y] = '\0';
+				_y = 0;
+				__arrlen[_z++] = atoi(_temp);
+			}
+			else
+				_temp[_y++] = _x;
+		}
+		_temp[_y] = '\0';
+		__arrlen[_z] = atoi(_temp);
+	}
+	// allocate dynamic memory
+	_w = _y = _z = 0;
+	// ///////// for array
+	char *__tr = NULL;
+	// ///////// for non - string array 
+	if (*_id != STR)
+		__tr = _temp;
+	while (_x != _C_TUTUP_)
+	{
+		if (*_id == STR)
+		{
+			__tr = malloc(__arrlen[_w]);
+		}
+		_y = 0;
+		while ((_x = getc(_open)) != _ARR_SEP_ && _x != _C_TUTUP_)
+		{
+			__tr[_y++] = _x;
+		}
+		__tr[_y] = '\0';
+		if (*_en_flags)
+		{
+		__DECRYPT_CONTENT__(*_id, __tr)}
+		switch (*_id)
+		{
+		case INT:
+			{
+				int a = atoi(__tr);
+				int dc = *((int *)data_comp);
+				if(a == dc)count_res++;
+			}
+			break;
+		case DOUBLE:
+			{
+				double a = atof(__tr);
+				double dc = *((double *)data_comp);
+				if(a == dc)count_res++;
+			}
+			break;
+		case BOOL:
+			{
+				short a = (short) atoi(__tr);
+				short dc = (short) *((short *)data_comp);
+				if(a == dc)count_res++;
+			}
+			break;
+		case LONG:
+			{
+				long long int a = atoll(__tr);
+				long long int dc = *((long long int *)data_comp);
+				if(a == dc)count_res++;
+			}
+			break;
+		case STR:
+			{
+				char *dc = (char *)data_comp;
+				if(!strcmp(dc, __tr))count_res++;
+				free(__tr);
+				__tr = NULL;
+			}
+			break;
+		case CHR:
+			{
+				int dc = *((char *)data_comp);
+				if(__tr[0] == dc)count_res++;
+			}
+			break;
+		}
+		_w++;
+	}
+	free(__sizearr);
+	if (__arrlen)
+		free(__arrlen);
+	free(_type);
+	free(_id);
+	free(_name);
+	free(_en_flags);
+	*_errnum = NE;
+	fseek(_open, *_sigPos, 0);
+	return count_res;
+}
 void *nget_ap(NDATA * data, const char *fullpath, int start, int end)
 {
 	if (!data)
