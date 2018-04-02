@@ -1,0 +1,117 @@
+1. 	NDATA *nopen(const char *nameFile, const char *signature);
+	Usages :
+		open the NDATA based files and create the NDATA objects to provide an operation of data manipulation
+	Parameters :
+		1. const char *nameFile  : The full path into file
+		2. const char *signature : The signature file, identify your own file, located on the top of file.
+	Returns :
+		NDATA * : NDATA based objects struct pointer
+	Description :
+		nopen method will checking the file, if file not found, it will created automatic with several data that inputted into parameter 2(signature), the data is
+		empty now. if file is found, the nopen methods will open the file and prepare the data into NDATA struct to perfom any operation next. This method returned NDATA struct.
+		so, you can use this msthod as:
+		
+		NDATA *data = nopen(path_into_file, your_signature);
+		
+2. 	int nclose(NDATA *data);
+	Usages :
+		Save the last operation, then release the memory owned by NDATA struct, finally close the file.
+	Parameters :
+		1. NDATA *data  : The pointer into your NDATA objects
+	Returns : 
+		int : result of operation
+			-1 : NDATA is null
+			0  : operation success
+	Description :
+		INFORMATION IS IN Usages SECTION.
+3. 	void nadd_node(NDATA * data, const char *path, const char *node_name)
+	Usages :
+		Add a node in a specified path as defined in Parameter 1 with name specified in parameter 2.
+	Parameters :
+		1. 	NDATA * data : The pointer into your current NodeData struct-based objects.
+		2. 	const char *path : The specified node path to perfom an action.
+		3. 	const char *node_name : The name of new node.
+	Returns :
+		void
+	Description :
+		Add a new node in the path specified by parameter 1, the path can be NULL, mean is located on root node path.
+		The node path acts like a directory in linux. so, if i have a node called *NODE1*, and i want to add a new node called
+		*innernode1* as the inner of *NODE1*, we just pass the path parameter into "NODE1" and the second parameter(node_name)
+		to "innernode1". If we want to add a node "inner2" as the inner of *innernode1*, we just pass the first
+		parameter into "NODE1/innernode1" and the second parameters to "inner2". The '/' separator means operator on the most left
+		operand is parent node and on the most right is the child node(the node that any action performed).
+		
+4. 	void ndel_node(NDATA * data, const char *fullpath)
+	Usage :
+		Delete a node in a specified full path into node.
+	Parameters :
+		1. 	NDATA * data : The pointer into your current NodeData struct-based objects.
+		2. 	const char *fullpath : The full path into node.
+	Returns :
+		void
+	Description :
+		Delete a node in a specified full path into node. The null fullpath is not allowed.
+		Because, nothing node to be selected to delete.
+		
+5. 	void nclear_body(NDATA * data, const char *fullpath)
+	Usage :
+		Delete each content in a specified full path node.
+	Parameters :
+		1. 	NDATA * data : The pointer into your current NodeData struct-based objects.
+		2. 	const char *fullpath : The full path node to perfom action
+	Returns :
+		void
+	Description :
+		Delete each content in a specified full path node. The null fullpath is not allowed.
+		Because, this method is delete each content in a node, so if a root fullpath(NULL) selected, the action is
+		delete each content and return the error(file error, etc). Besides that, i ignore this ilegal operation.
+
+6. 	char **nlist_body(NDATA * data, const char *fullpath)
+	Usages :
+		Shows a list of all content with attributes in a specified full path node.
+	Parameters :
+		1. 	NDATA * data : The pointer into your current NodeData struct-based objects.
+		2. 	const char *fullpath : The full path node to shows a list. Value can be null, indicates root path, shows each element in the root.
+	Returns :
+		char ** : indicates an array of string, Array terminated by NULL pointer. Returns NULL if a data is not found in node
+	Description :
+		Shows a list of all content with attributes in a specified full path node. The format of the list can be :
+		
+				[Node-Name][Node-char-identifier] or
+				[Data/Array-Name][Data/Array-char-identifier][Data/Array-char-element_type][Data/Array-char-encrypt_flags]
+		
+			Identifier can be :
+				(  : Node Identifier
+				<  : Data Identifier
+				>  : Array Data Identifier
+			Elemen type can be :
+				b  : Boolean
+				i  : Integer
+				c  : Char
+				F  : Double
+				L  : Long
+				s  : String
+		Example : I have a node called NODE1 and in this node found any data and node. The data is Boolean array called "BoolData" with encypted data and 
+				  one node called "INNERNode", so the list is :
+		
+				BoolData>b1
+				INNERNode(
+				
+		The list/array is array terminated, terminated with NULL pointer. This is an example reading a list of node contents :
+		
+			char **node_list = nlist_body(node_data, NULL); // indicates I have to shows the contents in the root fullpath
+			int x = 0;
+			for(; node_list[x] != NULL; x++){
+				// your operations here
+			}
+
+extern void nadd_data(NDATA * data, const char *path, const char *elem, const short type, void *content, short encrypt_flags);
+extern void *nget_data(NDATA * data, const char *fullpath);
+extern void ndel_data(NDATA * data, const char *fullpath);
+extern void nset_data(NDATA * data, const char *fullpath, void *content);
+extern void nstrcat_iter(NDATA * data, const char *fullpath);
+extern void nnext_catc(NDATA * data, const char c);
+extern void nnext_cats(NDATA * data, const char *s);
+extern void nempty_data(NDATA * data, const char *fullpath);
+extern short nis_empty(NDATA * data, const char *fullpath);
+extern short nget_error(NDATA * data);
