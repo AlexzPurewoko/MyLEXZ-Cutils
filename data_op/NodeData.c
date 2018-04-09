@@ -3224,7 +3224,7 @@ void ndel_ap(NDATA * data, const char *fullpath, int start, int end)
 			if (_w <= end)
 				if (_w >= start)
 				{
-					while ((_x = getc(_open)) != _LEN_SEP_);
+					while ((_x = getc(_open)) != _LEN_SEP_ && _x != _C_BUKA_);
 					_w++;
 					continue;
 				}
