@@ -1,8 +1,8 @@
 /*
-	*	ndata.h
+	*	NodeData.h
 	*	THIS FILE IS MACHINE GENERATED!!!, DO NOT MODIFY THIS FILE OR YOU HAVE EXPERIENCED ANY PROBLEM!!!
 	*	@AUTHOR : Alexzander Purwoko Widiantoro
-	*	Build Time : Sunday, March 24 2018, on 6:10:39
+	*	Build Time : Thursday, April 16 2018, on 15:57:16
 */
 
 /*
@@ -53,32 +53,33 @@
 typedef struct __ndata_methods__{
 	void * (*nopen) (const char *, const char *);
 	int (*nclose) (void *);
-	void (*addNode) (void *, const char *, const char *);
-	void (*delNode) (void *, const char *);
-	void (*clearContents) (void *, const char *);
-	char ** (*listContents) (void *, const char *);
-	void (*naddElem) (void *, const char *, const char *, const short, void *, short);
-	void * (*ngetElem) (void *, const char *);
-	void (*ndelElem) (void *, const char *);
-	void (*nsetElem) (void *, const char *, void *);
+	void (*nadd_node) (void *, const char *, const char *);
+	void (*ndel_node) (void *, const char *);
+	void (*nclear_body) (void *, const char *);
+	char ** (*nlist_body) (void *, const char *);
+	void (*nadd_data) (void *, const char *, const char *, const short, void *, short);
+	void * (*nget_data) (void *, const char *);
+	void (*ndel_data) (void *, const char *);
+	void (*nset_data) (void *, const char *, void *);
 	void (*nstrcat_iter) (void *, const char *);
 	void (*nnext_catc) (void *, const char);
 	void (*nnext_cats) (void *, const char *);
-	void (*nempty_el) (void *, const char *);
+	void (*nempty_data) (void *, const char *);
 	short (*nis_empty) (void *, const char *);
-	short (*ngetErrors) (void *);
+	short (*nget_error) (void *);
 	void (*nsetAF) (void *, short);
 	short (*nisAF) (void *);
-	void (*naddArray) (void *, const char *, const char *, short, void *, size_t, short);
-	void * (*ngetArray) (void *, const char *);
-	void * (*ngetArrayAtPos) (void *, const char *, int, int);
-	int (*ngetArrLength) (void *, const char *);
-	void (*nsetArray) (void *, const char *, void *, int);
-	void (*nsetArrayAtPos) (void *, const char *, void *, int, int, int);
-	void (*nappendArray) (void *, const char *, void *, int);
-	char * (*ndisplayErr) (void *);
+	void (*nadd_arr) (void *, const char *, const char *, short, void *, size_t, short);
+	void * (*nget_arr) (void *, const char *);
+	size_t (*nget_occur) (void *, const char *, void *);
+	void * (*nget_ap) (void *, const char *, int, int);
+	int (*nget_arrlen) (void *, const char *);
+	void (*nset_arr) (void *, const char *, void *, int);
+	void (*nset_ap) (void *, const char *, void *, int, int, int);
+	void (*nappend_arr) (void *, const char *, void *, int);
+	char * (*ndisplay_error) (void *);
 	void (*nempty_arr) (void *, const char *);
-	void (*ndelAtPos) (void *, const char *, int, int);
+	void (*ndel_ap) (void *, const char *, int, int);
 	void (*nreadarr_iter) (void *, const char *);
 	void * (*nnext_read) (void *);
 	void (*nfinish_read) (void *);
@@ -90,7 +91,7 @@ typedef struct __ndata_methods__{
 	void (*nnext_addarr) (void *, void *);
 	void (*nsave) (void *);
 	short (*nisLocked) (void *);
-	short (*ngetTPElem) (void *, const char *);
+	short (*nget_td) (void *, const char *);
 	short (*nis_exists) (void *, const char *);
 }mndata;
 
@@ -100,32 +101,33 @@ mndata *load_mndata(void *lib_handle)
 	// load all method targets with dlsym...
 	_op -> nopen 	 = 	dlsym(lib_handle, "nopen");
 	_op -> nclose 	 = 	dlsym(lib_handle, "nclose");
-	_op -> addNode 	 = 	dlsym(lib_handle, "addNode");
-	_op -> delNode 	 = 	dlsym(lib_handle, "delNode");
-	_op -> clearContents 	 = 	dlsym(lib_handle, "clearContents");
-	_op -> listContents 	 = 	dlsym(lib_handle, "listContents");
-	_op -> naddElem 	 = 	dlsym(lib_handle, "naddElem");
-	_op -> ngetElem 	 = 	dlsym(lib_handle, "ngetElem");
-	_op -> ndelElem 	 = 	dlsym(lib_handle, "ndelElem");
-	_op -> nsetElem 	 = 	dlsym(lib_handle, "nsetElem");
+	_op -> nadd_node 	 = 	dlsym(lib_handle, "nadd_node");
+	_op -> ndel_node 	 = 	dlsym(lib_handle, "ndel_node");
+	_op -> nclear_body 	 = 	dlsym(lib_handle, "nclear_body");
+	_op -> nlist_body 	 = 	dlsym(lib_handle, "nlist_body");
+	_op -> nadd_data 	 = 	dlsym(lib_handle, "nadd_data");
+	_op -> nget_data 	 = 	dlsym(lib_handle, "nget_data");
+	_op -> ndel_data 	 = 	dlsym(lib_handle, "ndel_data");
+	_op -> nset_data 	 = 	dlsym(lib_handle, "nset_data");
 	_op -> nstrcat_iter 	 = 	dlsym(lib_handle, "nstrcat_iter");
 	_op -> nnext_catc 	 = 	dlsym(lib_handle, "nnext_catc");
 	_op -> nnext_cats 	 = 	dlsym(lib_handle, "nnext_cats");
-	_op -> nempty_el 	 = 	dlsym(lib_handle, "nempty_el");
+	_op -> nempty_data 	 = 	dlsym(lib_handle, "nempty_data");
 	_op -> nis_empty 	 = 	dlsym(lib_handle, "nis_empty");
-	_op -> ngetErrors 	 = 	dlsym(lib_handle, "ngetErrors");
+	_op -> nget_error 	 = 	dlsym(lib_handle, "nget_error");
 	_op -> nsetAF 	 = 	dlsym(lib_handle, "nsetAF");
 	_op -> nisAF 	 = 	dlsym(lib_handle, "nisAF");
-	_op -> naddArray 	 = 	dlsym(lib_handle, "naddArray");
-	_op -> ngetArray 	 = 	dlsym(lib_handle, "ngetArray");
-	_op -> ngetArrayAtPos 	 = 	dlsym(lib_handle, "ngetArrayAtPos");
-	_op -> ngetArrLength 	 = 	dlsym(lib_handle, "ngetArrLength");
-	_op -> nsetArray 	 = 	dlsym(lib_handle, "nsetArray");
-	_op -> nsetArrayAtPos 	 = 	dlsym(lib_handle, "nsetArrayAtPos");
-	_op -> nappendArray 	 = 	dlsym(lib_handle, "nappendArray");
-	_op -> ndisplayErr 	 = 	dlsym(lib_handle, "ndisplayErr");
+	_op -> nadd_arr 	 = 	dlsym(lib_handle, "nadd_arr");
+	_op -> nget_arr 	 = 	dlsym(lib_handle, "nget_arr");
+	_op -> nget_occur 	 = 	dlsym(lib_handle, "nget_occur");
+	_op -> nget_ap 	 = 	dlsym(lib_handle, "nget_ap");
+	_op -> nget_arrlen 	 = 	dlsym(lib_handle, "nget_arrlen");
+	_op -> nset_arr 	 = 	dlsym(lib_handle, "nset_arr");
+	_op -> nset_ap 	 = 	dlsym(lib_handle, "nset_ap");
+	_op -> nappend_arr 	 = 	dlsym(lib_handle, "nappend_arr");
+	_op -> ndisplay_error 	 = 	dlsym(lib_handle, "ndisplay_error");
 	_op -> nempty_arr 	 = 	dlsym(lib_handle, "nempty_arr");
-	_op -> ndelAtPos 	 = 	dlsym(lib_handle, "ndelAtPos");
+	_op -> ndel_ap 	 = 	dlsym(lib_handle, "ndel_ap");
 	_op -> nreadarr_iter 	 = 	dlsym(lib_handle, "nreadarr_iter");
 	_op -> nnext_read 	 = 	dlsym(lib_handle, "nnext_read");
 	_op -> nfinish_read 	 = 	dlsym(lib_handle, "nfinish_read");
@@ -137,7 +139,7 @@ mndata *load_mndata(void *lib_handle)
 	_op -> nnext_addarr 	 = 	dlsym(lib_handle, "nnext_addarr");
 	_op -> nsave 	 = 	dlsym(lib_handle, "nsave");
 	_op -> nisLocked 	 = 	dlsym(lib_handle, "nisLocked");
-	_op -> ngetTPElem 	 = 	dlsym(lib_handle, "ngetTPElem");
+	_op -> nget_td 	 = 	dlsym(lib_handle, "nget_td");
 	_op -> nis_exists 	 = 	dlsym(lib_handle, "nis_exists");
 	return _op;
 }
