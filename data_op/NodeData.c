@@ -1502,7 +1502,7 @@ void *nget_data(NDATA * data, const char *fullpath)
 	case DOUBLE:
 		{
 			double *res = (double *)__result;
-			*res = atof(__isi);
+			*res = strtod(__isi, (char **) NULL);
 		}
 		break;
 	case BOOL:
