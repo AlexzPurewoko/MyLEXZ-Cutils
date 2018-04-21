@@ -41,7 +41,6 @@
 		 * Last updated in : Tuesday, March 22, 2018 on 00:34 AM
 		 * Time Zone : Jakarta, GMT+7 , WIB
 		 */
-	/* This file is used to declare a functions on PrimitiveData.c */
  /*************************** DEFINEABLE VARIABLES **************************/
 #define _ENC_
 #ifdef _ENC_
@@ -78,8 +77,8 @@
 #define _LEN_ '|'
 #define _LEN_SEP_ '*'
 #endif
-#include "../array/cstring.h"
-#include "../component.h"
+#include "cstring.h"
+#include "component.h"
 #define __MAXBUFF__ 0x0000200	// 512 bytes
 #define __NODEBUFF__ 0x0000010	// 16 bytes
 #define __FILEBUFF__ 0x0000100	// 256 bytes
