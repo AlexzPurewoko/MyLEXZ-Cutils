@@ -77,8 +77,8 @@
 #define _LEN_ '|'
 #define _LEN_SEP_ '*'
 #endif
-#include "cstring.h"
-#include "component.h"
+#include "../array/cstring.h"
+#include "../component.h"
 #define __MAXBUFF__ 0x0000200	// 512 bytes
 #define __NODEBUFF__ 0x0000010	// 16 bytes
 #define __FILEBUFF__ 0x0000100	// 256 bytes
